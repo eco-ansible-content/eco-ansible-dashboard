@@ -34,5 +34,10 @@
     "ansible/splunk-eda-ta": "splunk-eda-ta (EDA Technology Add-on)"
   },
   "workflows": {},
+  "triage": {
+    "needs_triage_labels": ["needs_triage", "needs-triage", "needs triage", "untriaged", "triage-needed"],
+    "triaged_labels": ["triaged", "confirmed", "accepted"],
+    "include_no_activity": true
+  },
   "refresh_minutes": 30
 }

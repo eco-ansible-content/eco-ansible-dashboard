@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Build a public repository snapshot with the Python standard library."""
+"""Build a public snapshot of repository health, issue triage, and Core compatibility."""
 
 import argparse
 import json
@@ -7,17 +7,24 @@ import os
 import re
 import sys
 import time
-from datetime import datetime, timezone
+from datetime import datetime, timedelta, timezone
 from pathlib import Path
 from urllib.error import HTTPError, URLError
 from urllib.parse import urlencode, urlparse
 from urllib.request import Request, urlopen
+
+if __package__:
+    from .compatibility import collect_compatibility
+else:
+    from compatibility import collect_compatibility
 
 API = "https://api.github.com"
 SLUG = re.compile(r"^[A-Za-z0-9_.-]+/[A-Za-z0-9_.-]+$")
 OWNER = re.compile(r"^[A-Za-z0-9-]+$")
 FAILURES = {"failure", "timed_out", "action_required", "startup_failure"}
 PENDING = {"queued", "in_progress", "waiting", "pending", "requested"}
+NEEDS_TRIAGE = {"needs_triage", "needs-triage", "needs triage", "untriaged", "triage-needed"}
+TRIAGED = {"triaged", "confirmed", "accepted"}
 
 
 class APIError(RuntimeError):
@@ -138,6 +145,14 @@ def load_config(path):
             raise ValueError("Workflow selectors must map owner/repository to names or paths")
     if not isinstance(config.get("refresh_minutes", 30), int) or config.get("refresh_minutes", 30) < 5:
         raise ValueError("refresh_minutes must be an integer of at least 5")
+    triage = config.get("triage", {})
+    if not isinstance(triage, dict):
+        raise ValueError("triage must be an object")
+    for key in ("needs_triage_labels", "triaged_labels"):
+        if key in triage and (not isinstance(triage[key], list) or not all(isinstance(label, str) for label in triage[key])):
+            raise ValueError(f"triage.{key} must be a list of label names")
+    if "include_no_activity" in triage and not isinstance(triage["include_no_activity"], bool):
+        raise ValueError("triage.include_no_activity must be true or false")
     return config
 
 
@@ -217,6 +232,40 @@ def summarize_ci(workflows, runs, head_sha, selectors=None):
     return {"state": overall, "workflows": details}
 
 
+def summarize_issues(issues, config, now=None):
+    now = now or datetime.now(timezone.utc)
+    cutoff = now - timedelta(days=7)
+    rule = config.get("triage", {})
+    pending_labels = {value.casefold() for value in rule.get("needs_triage_labels", NEEDS_TRIAGE)}
+    reviewed_labels = {value.casefold() for value in rule.get("triaged_labels", TRIAGED)}
+    recent = []
+    for issue in issues:
+        if "pull_request" in issue or issue.get("state", "open") != "open":
+            continue
+        try:
+            created = datetime.fromisoformat(issue["created_at"].replace("Z", "+00:00"))
+        except (KeyError, ValueError):
+            continue
+        if created.tzinfo is None or not cutoff <= created <= now:
+            continue
+        labels = [item["name"] if isinstance(item, dict) else str(item) for item in issue.get("labels", [])]
+        normalized = {label.casefold() for label in labels}
+        reason = None
+        if normalized & pending_labels:
+            reason = "Needs-triage label"
+        elif rule.get("include_no_activity", True) and not (
+            normalized & reviewed_labels or issue.get("assignees") or issue.get("comments", 0)
+        ):
+            reason = "No assignee or comments"
+        recent.append({"number": issue["number"], "title": issue["title"], "url": issue["html_url"],
+                       "created_at": issue["created_at"], "labels": labels,
+                       "needs_triage": bool(reason), "triage_reason": reason,
+                       "comments": issue.get("comments", 0), "assignee_count": len(issue.get("assignees", []))})
+    recent.sort(key=lambda issue: issue["created_at"], reverse=True)
+    return {"recent": recent, "new_count": len(recent),
+            "untriaged_count": sum(issue["needs_triage"] for issue in recent), "days": 7}
+
+
 def collect_repo(api, repo, config):
     if not is_public(repo):
         raise ValueError("Refusing to collect private repository data")
@@ -232,6 +281,7 @@ def collect_repo(api, repo, config):
         "topics": repo.get("topics", []), "stars": repo.get("stargazers_count", 0),
         "open_prs": None, "open_issues": None, "commit": None, "release": None,
         "ci": {"state": "unknown", "workflows": []}, "errors": [],
+        "issue_activity": None, "compatibility": None,
     }
 
     def fetch(label, call, allowed=()):
@@ -259,6 +309,7 @@ def collect_repo(api, repo, config):
     issues = fetch("Issues", lambda: api.pages(base + "/issues", {"state": "open"}))
     if issues is not None:
         row["open_issues"] = sum("pull_request" not in item for item in issues)
+        row["issue_activity"] = summarize_issues(issues, config)
     release = fetch("Release", lambda: api.data(base + "/releases/latest"), allowed=(404,))
     if release:
         row["release"] = {
@@ -275,12 +326,16 @@ def collect_repo(api, repo, config):
     if workflows is not None and runs is not None:
         selectors = config.get("workflows", {}).get(slug)
         row["ci"] = summarize_ci(workflows, runs, head_sha, selectors)
+    row["compatibility"] = collect_compatibility(api, repo, workflows, head_sha)
     return row
 
 
 def build_snapshot(api, config):
     repos = discover(api, config)
-    rows = [collect_repo(api, repo, config) for repo in repos]
+    rows = []
+    for repo in repos:
+        print(f"Collecting {repo['full_name']}", flush=True)
+        rows.append(collect_repo(api, repo, config))
     return {
         "schema_version": 1,
         "title": config.get("title", "Repository dashboard"),

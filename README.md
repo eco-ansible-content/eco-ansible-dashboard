@@ -1,6 +1,6 @@
 # ECO Ansible dashboard
 
-A public GitHub Pages dashboard for selected Ansible collection repositories. It shows default-branch GitHub Actions results, the latest stable GitHub release, open pull requests and issues, and the latest commit. Domain grouping and filtering, search, status filters, sorting, and expandable workflow details work entirely in the browser.
+A public GitHub Pages dashboard for selected Ansible collection repositories. It shows default-branch GitHub Actions results, declared Ansible Core support and CI test coverage, the latest stable GitHub release, open pull requests, and new issues awaiting triage. Domain grouping and filtering, search, status filters, sorting, and expandable workflow details work entirely in the browser.
 
 ```text
 Public repositories → scheduled collector → status.json → GitHub Pages
@@ -97,17 +97,19 @@ Generated `site/data/status.json` is ignored by Git and deployed as part of the 
 
 ## Run locally
 
-Requires Python 3.10 or newer; the collector has no external Python dependencies. From the repository root:
+Requires Python 3.10 or newer. Install the pinned YAML parser dependency before running the collector. From the repository root:
 
 ```bash
-python3 scripts/collect_status.py
-python3 -m http.server 8000 --directory site
+python3 -m venv .venv
+.venv/bin/python -m pip install -r requirements.txt
+.venv/bin/python scripts/collect_status.py
+.venv/bin/python -m http.server 8000 --directory site
 ```
 
 Visit <http://localhost:8000>. Public API collection can run without a token, but GitHub allows only 60 unauthenticated requests per hour. If already signed into the GitHub CLI, use your existing session without writing credentials to a file:
 
 ```bash
-GH_TOKEN="$(gh auth token)" python3 scripts/collect_status.py
+GH_TOKEN="$(gh auth token)" .venv/bin/python scripts/collect_status.py
 ```
 
 Never commit a token. The **Reload snapshot** button reloads the published data; it does not trigger collection or bypass the workflow schedule.
@@ -128,10 +130,19 @@ A warning appears after the snapshot is older than three expected refresh interv
 ## Check changes
 
 ```bash
-python3 -m unittest discover -s tests -v
+.venv/bin/python -m pip install -r requirements.txt
+.venv/bin/python -m unittest discover -s tests -v
 node --check site/app.js
 ```
 
 Tests cover domain selection across organizations, domain validation, display labels, CI aggregation, current-commit matching, reruns, workflow selection, API pagination, private-data exclusion, and incomplete metrics.
 
 References: [GitHub Pages custom workflows](https://docs.github.com/en/pages/getting-started-with-github-pages/using-custom-workflows-with-github-pages), [workflow triggers](https://docs.github.com/en/actions/reference/workflows-and-actions/events-that-trigger-workflows#schedule), [workflow runs API](https://docs.github.com/en/rest/actions/workflow-runs#list-workflow-runs-for-a-repository).
+
+## Issue triage and Core compatibility
+
+The **New issues** view includes open issues created in the past seven days, excluding pull requests. It defaults to **Needs triage**. An issue is flagged when it has a configured needs-triage label, or has no assignee/comments and no configured triaged label. Each issue shows the reason, labels, repository, and creation time. This heuristic is not proof that nobody has read an issue. Configure `triage.needs_triage_labels`, `triage.triaged_labels`, and `triage.include_no_activity` in `config/repos.json`; set the last option to `false` to use explicit labels only. Search, domain, label, and triage filters work together. Summary counts cover the whole team.
+
+**Supported** Core versions come only from the current default branch's `meta/runtime.yml` `requires_ansible` field. **CI tested** versions mean configured coverage from explicit Ansible Core inputs, environment variables, and matrices in test jobs in active GitHub Actions workflows, directly referenced matrix files, public reusable workflows (one level), and Azure Pipelines Ansible-stage test parameters. Comments, disabled jobs, Python matrices, and unresolved expressions are not treated as Core versions. Sources link to the inspected commit or reusable workflow ref. CI coverage is not a statement that all tests passed, and unsupported CI formats appear as **Not declared** rather than inferred coverage. This is default-branch compatibility, not release-specific compatibility.
+
+The interface uses a larger type scale and search field, shows detailed workflow and activity information only on expansion, and supports light/dark themes. It follows the system preference initially and stores an explicit theme choice in browser local storage. The redundant header logo has been removed.
