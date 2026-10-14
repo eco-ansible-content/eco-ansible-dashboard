@@ -1,0 +1,38 @@
+{
+  "title": "ECO Ansible",
+  "organizations": [],
+  "repositories": [],
+  "groups": {
+    "VMware": ["ansible-collections/vmware.vmware", "ansible-collections/vmware.vmware_rest"],
+    "Microsoft / Windows": [
+      "ansible-collections/ansible.windows",
+      "ansible-collections/microsoft.ad",
+      "ansible-collections/microsoft.iis",
+      "ansible-collections/microsoft.mecm",
+      "ansible-collections/microsoft.scom",
+      "ansible-collections/microsoft.scvmm",
+      "ansible-collections/microsoft.hyperv"
+    ],
+    "Splunk": [
+      "ansible-collections/splunk.es",
+      "ansible-collections/splunk.enterprise",
+      "ansible-collections/splunk.itsi",
+      "ansible/splunk-eda-ta"
+    ],
+    "ServiceNow": ["ansible-collections/servicenow.itsm"],
+    "Cloud": ["ansible-collections/azure", "ansible-collections/google.cloud", "ansible-collections/ansible.oci"],
+    "Database": ["ansible-collections/ansible.mysql"],
+    "Validated Content": ["redhat-cop/infra.windows_ops"]
+  },
+  "exclude": [
+    "eco-ansible-content/eco-ansible-dashboard"
+  ],
+  "include_archived": false,
+  "include_forks": true,
+  "display_names": {
+    "ansible-collections/azure": "azure.azcollection",
+    "ansible/splunk-eda-ta": "splunk-eda-ta (EDA Technology Add-on)"
+  },
+  "workflows": {},
+  "refresh_minutes": 30
+}

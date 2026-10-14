@@ -1,0 +1,46 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#f5f7f5">
+  <meta name="description" content="Public repository health, CI results, releases, and activity for the ECO Ansible team.">
+  <title>ECO Ansible · Repository dashboard</title>
+  <link rel="icon" href="favicon.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="styles.css">
+  <script defer src="app.js"></script>
+</head>
+<body>
+  <a class="skip-link" href="#repositories">Skip to repositories</a>
+  <header class="topbar">
+    <a class="brand" href="./" aria-label="Dashboard home"><span class="brand-icon" aria-hidden="true">e</span><span id="brand-name">ECO Ansible</span><span class="brand-divider"></span><span class="brand-subtitle">Team dashboard</span></a>
+    <a class="github-link" href="https://github.com/eco-ansible-content/eco-ansible-dashboard" target="_blank" rel="noopener noreferrer">View on GitHub <span aria-hidden="true">↗</span></a>
+  </header>
+  <main>
+    <section class="intro" aria-labelledby="page-title">
+      <div><p class="eyebrow"><span class="live-dot" aria-hidden="true"></span> ECOSYSTEM CONTENT HEALTH</p><h1 id="page-title">Every repo. One view.</h1><p class="intro-copy">A shared pulse on our ecosystem content, from CI checks to the latest release.</p></div>
+      <div class="snapshot"><div class="snapshot-label">LAST SNAPSHOT</div><p id="snapshot-time">Waiting for data</p><button id="reload" type="button"><span aria-hidden="true">↻</span> Reload snapshot</button></div>
+    </section>
+    <div id="notice" class="notice" role="status" hidden></div>
+    <section class="stats" aria-label="Repository summary">
+      <div class="stat"><div class="stat-label">Repositories <span aria-hidden="true">▤</span></div><strong id="stat-total">—</strong><p>Team-maintained public content</p></div>
+      <div class="stat"><div class="stat-label">Passing CI <span class="green" aria-hidden="true">●</span></div><strong id="stat-passing">—</strong><p>Checks pass on the current commit</p></div>
+      <div class="stat"><div class="stat-label">Needs attention <span class="amber" aria-hidden="true">●</span></div><strong id="stat-attention">—</strong><p>Failed, incomplete, or unavailable CI</p></div>
+      <div class="stat"><div class="stat-label">Open pull requests <span aria-hidden="true">⑂</span></div><strong id="stat-prs">—</strong><p>Across monitored repositories</p></div>
+    </section>
+    <section id="repositories" class="repository-section" aria-labelledby="repo-title">
+      <div class="section-heading"><div><h2 id="repo-title">Repositories <span id="repo-count" class="count">0</span></h2><p>Default-branch checks, releases, and work in progress.</p></div><span class="public-label"><span aria-hidden="true">◎</span> Public data</span></div>
+      <div class="toolbar">
+        <label class="search"><span aria-hidden="true">⌕</span><input id="search" type="search" placeholder="Search repositories…" aria-label="Search repositories"></label>
+        <label class="domain-label"><select id="domain" aria-label="Filter repositories by domain"><option value="">All domains</option></select></label>
+        <div class="filter-tabs" role="group" aria-label="Filter repositories by status"><button class="active" data-filter="all" aria-pressed="true">All repos</button><button data-filter="attention" aria-pressed="false">Needs attention</button><button data-filter="passing" aria-pressed="false">Passing</button><button data-filter="running" aria-pressed="false">Running</button></div>
+        <label class="sort-label">Sort <select id="sort" aria-label="Sort repositories"><option value="name">Name A–Z</option><option value="attention">Attention first</option><option value="updated">Recent activity</option><option value="prs">Most open PRs</option></select></label>
+      </div>
+      <div id="repo-list" class="repo-list" aria-live="polite" aria-busy="true"><div class="empty-state"><span class="empty-icon" aria-hidden="true">▤</span><h3>Loading repository status</h3><p>Fetching the latest published snapshot.</p></div></div>
+      <div class="table-footer"><span id="shown-count">Loading repositories…</span><span>CI reflects the current default-branch commit.</span></div>
+    </section>
+    <section class="explainer" aria-label="How to read this dashboard"><span class="explainer-icon" aria-hidden="true">i</span><div><h3>A snapshot, with context.</h3><p>Passing means every monitored workflow succeeded on the current default-branch commit. Missing, cancelled, or skipped runs appear as unknown. Open a repository to see its individual checks.</p></div></section>
+    <footer><span>ECO Ansible <span class="footer-dot">·</span> Built for a clearer view</span><span id="refresh-description">Collected by GitHub Actions · Every 30 minutes</span></footer>
+  </main>
+</body>
+</html>
