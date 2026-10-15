@@ -43,7 +43,12 @@ typography:
     fontFamily: "Red Hat Display, sans-serif"
     fontSize: "24px"
     fontWeight: 700
-    lineHeight: 1.2
+    lineHeight: 1.15
+  brand-parent:
+    fontFamily: "Red Hat Display, sans-serif"
+    fontSize: "24px"
+    fontWeight: 400
+    lineHeight: 1.15
   metric:
     fontFamily: "Red Hat Display, sans-serif"
     fontSize: "24px"
@@ -175,7 +180,7 @@ Prominent headings, the brand, overview metrics, and detail titles use Red Hat D
 The six unmodified WOFF2 files cover regular, medium, and bold weights in both families. They are self-hosted with `font-display: swap`; [site/fonts/README.md](site/fonts/README.md) records the upstream commit, and `site/fonts/OFL.txt` plus `site/fonts/LICENSE` retain the included SIL Open Font License and notices.
 
 - **Headline:** medium Display for the page title; the mobile role applies at the small breakpoint.
-- **Brand:** bold Display; reduces to (20px) on small screens.
+- **Brand:** regular Display for “Red Hat” above bold Display for the dashboard name, separated from the hat by a white vertical rule; both lines reduce to (18px) on small screens.
 - **Metric:** medium Display with tabular numbers; reduces to (23px) on small screens.
 - **Detail title:** medium Display for expanded repository sections.
 - **Body:** regular Text with a (1.5) line height. The page description is capped at (70ch), and reading guidance at (75ch).
@@ -203,7 +208,7 @@ Action buttons and issue-label controls use the subtly softened default radius. 
 
 ### Masthead logo
 
-Place the unmodified official red-and-black fedora before ECO Ansible. The image occupies (48px) square on desktop and (32px) square below the small breakpoint, with clear space from the title. Keep its original aspect ratio and colors in both themes; the masthead remains dark. The header wraps its actions when needed on narrow screens. The accessible home link includes Red Hat and ECO Ansible. Asset source and trademark attribution are in `site/assets/README.md`.
+Match the supplied Red Hat design-system lockup: official fedora, white vertical divider, then “Red Hat” on the first line and the bold dashboard name on the second. The image occupies (64px) square on desktop and (40px) square below the small breakpoint, with clear space from the two-line title. Keep its original aspect ratio and colors in both themes; the masthead remains dark. The header wraps its actions when needed on narrow screens. The accessible home link includes Red Hat and ECO Ansible. Asset source and trademark attribution are in `site/assets/README.md`.
 
 ### Buttons
 

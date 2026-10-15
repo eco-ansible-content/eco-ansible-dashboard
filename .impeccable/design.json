@@ -141,6 +141,10 @@
       "small": {
         "displayName": "Small",
         "purpose": "Secondary metadata and source context."
+      },
+      "brand-parent": {
+        "displayName": "Parent brand",
+        "purpose": "Regular Red Hat Display on the first line of the header lockup."
       }
     },
     "shadows": [],

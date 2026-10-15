@@ -20,7 +20,7 @@ Static HTML, CSS, and JavaScript hosted on GitHub Pages. A Python collector in G
 
 ## Brand Commitments
 
-The user requested Red Hat design language, using https://ux.redhat.com/ as authority, while retaining the cleaner direction of the existing dashboard. Preserve the ECO Ansible name and omit the redundant letter logo. The user also requested the official Red Hat logo to the left of the header title.
+The user requested Red Hat design language, using https://ux.redhat.com/ as authority, while retaining the cleaner direction of the existing dashboard. Preserve the ECO Ansible name and omit the redundant letter logo. The user also requested the official Red Hat logo and a lockup matching the supplied design-system reference: hat, vertical divider, “Red Hat” above the bold dashboard name.
 
 ## Evidence on Hand
 
