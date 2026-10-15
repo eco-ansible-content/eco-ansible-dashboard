@@ -12,8 +12,8 @@
   <link rel="icon" href="favicon.svg" type="image/svg+xml">
   <link rel="preload" href="fonts/RedHatText-Regular.woff2" as="font" type="font/woff2" crossorigin>
   <link rel="preload" href="fonts/RedHatDisplay-Medium.woff2" as="font" type="font/woff2" crossorigin>
-  <link rel="stylesheet" href="styles.css?v=17d1305c020d">
-  <script defer src="app.js?v=3c2b7fb1bc1f"></script>
+  <link rel="stylesheet" href="styles.css?v=7805cb1c5d27">
+  <script defer src="app.js?v=6c89d9a95e2d"></script>
 </head>
 <body>
   <a class="skip-link" href="#dashboard">Skip to dashboard</a>
@@ -23,6 +23,7 @@
   </header>
   <main id="dashboard">
     <section class="page-heading" aria-labelledby="page-title"><div><h1 id="page-title">Repository overview</h1><p>Health, compatibility, and new issues across the team’s content.</p></div><div class="snapshot"><span id="snapshot-time">Loading snapshot…</span><button id="reload" type="button">Reload data</button></div></section>
+    <p id="reload-feedback" class="reload-feedback" role="status" hidden></p>
     <div id="notice" class="notice" role="status" hidden></div>
     <section class="overview" aria-label="Team summary">
       <div><strong id="stat-total">—</strong><span>repositories</span></div>
@@ -43,7 +44,7 @@
       <p id="view-description" class="view-description">Ansible Core support and CI coverage reflect the current default branch.</p>
       <div id="repo-list" class="content-list" aria-live="polite" aria-busy="true"><div class="empty-state"><h2>Loading repository status</h2><p>Fetching the latest published snapshot.</p></div></div>
       <div id="issue-list" class="content-list" aria-live="polite" hidden></div>
-      <div class="list-footer"><span id="shown-count">Loading repositories…</span><span id="refresh-description">Updates every 30 minutes</span></div>
+      <div class="list-footer"><span id="shown-count">Loading repositories…</span><span id="refresh-description">Collection scheduled every 30 minutes</span></div>
     </section>
     <details class="reading-guide">
       <summary>How to read these results</summary>
@@ -65,8 +66,8 @@
         <p><strong>Unknown does not necessarily mean something is broken.</strong> A release workflow that runs only for tags may have no run on the latest default-branch commit. Open repository details to inspect individual workflows and their GitHub links.</p>
         <p><strong>Core:</strong> supported versions come from <code>meta/runtime.yml</code>. CI tested versions are configured coverage from public CI definitions, including Azure Pipelines and reusable workflows; they do not imply a successful run. Open repository details for source links.</p>
         <p><strong>Issues:</strong> New issues counts open issues created in the past seven days. Total open issues counts all currently open issues, regardless of when they were created. Both counts exclude pull requests. Needs triage means a needs-triage label, or no assignee/comments and no triaged label. This is a configurable signal of likely pending work, not proof that nobody has read the issue.</p>
-        <p><strong>Update schedule:</strong> fresh data is collected every 30 minutes, at 7 and 37 minutes past each hour (UTC). Collection also runs after pushes to this dashboard’s <code>main</code> branch, or manually through Actions → Dashboard → Run workflow in the dashboard repository. Changes in monitored repositories appear after the next successful collection and deployment. Scheduled runs may be delayed by GitHub.</p>
-        <p><strong>Viewing the latest data:</strong> an open tab does not automatically fetch new snapshots. Use <strong>Reload data</strong> or refresh the page to load the latest published snapshot; neither action starts a new collection. “Updated … ago” shows the age of the snapshot you are viewing. A warning appears when it is over 90 minutes old.</p>
+        <p><strong>Update schedule:</strong> fresh data collection is scheduled every 30 minutes, at 7 and 37 minutes past each hour (UTC). Collection also runs after pushes to this dashboard’s <code>main</code> branch, or manually through Actions → Dashboard → Run workflow in the dashboard repository. Changes in monitored repositories appear after the next successful collection and deployment. GitHub can delay or drop scheduled runs, so this interval is an intended cadence rather than a guaranteed refresh.</p>
+        <p><strong>Viewing the latest data:</strong> an open tab does not automatically fetch new snapshots. Use <strong>Reload data</strong> or refresh the page to load the latest published snapshot; neither action starts a new collection. Reload data confirms whether a newer snapshot was available. “Updated … ago” shows the age of the snapshot you are viewing. A warning appears when it is over 90 minutes old.</p>
       </div>
     </details>
     <footer>Public repository data · Collected by GitHub Actions</footer>

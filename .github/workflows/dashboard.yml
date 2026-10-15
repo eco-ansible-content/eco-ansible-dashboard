@@ -31,6 +31,8 @@ jobs:
           .venv/bin/python -m unittest discover -s tests -v
       - name: Check browser JavaScript
         run: node --check site/app.js
+      - name: Test snapshot reload feedback
+        run: node --test tests/*.test.js
 
   build:
     if: github.event_name != 'pull_request' && github.ref == 'refs/heads/main'

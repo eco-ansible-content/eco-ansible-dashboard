@@ -59,6 +59,7 @@ h1 { font-family: "Red Hat Display", sans-serif; font-size: 36px; line-height: 1
 .page-heading p { color: var(--muted); margin: 0; max-width: 70ch; }
 .snapshot { display: flex; align-items: center; gap: 14px; color: var(--muted); font-size: 14px; white-space: nowrap; }
 .snapshot button { font-size: 15px; }
+.reload-feedback { margin: -8px 0 24px; color: var(--muted); font-size: 14px; }
 .notice { background: var(--surface); color: var(--warning); padding: 16px; border: 1px solid var(--warning); margin-bottom: 24px; font-size: 14px; }
 .overview { display: flex; flex-wrap: wrap; align-items: baseline; gap: 16px 32px; padding-bottom: 24px; }
 .overview > div, .overview > button { display: flex; align-items: baseline; gap: 9px; }

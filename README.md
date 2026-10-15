@@ -112,7 +112,7 @@ Visit <http://localhost:8000>. Public API collection can run without a token, bu
 GH_TOKEN="$(gh auth token)" .venv/bin/python scripts/collect_status.py
 ```
 
-Never commit a token. The **Reload snapshot** button reloads the published data; it does not trigger collection or bypass the workflow schedule.
+Never commit a token. The **Reload data** button reloads the published data and reports whether a newer snapshot was available; it does not trigger collection or bypass the workflow schedule. An overdue-collection warning links to the Dashboard workflow, where a user with repository access can request a collection on `main`. The cron interval is an intended cadence: GitHub can delay or drop scheduled runs.
 
 ## Interpret the results
 

@@ -1,6 +1,7 @@
 "use strict";
 
 const labels = {passing: "Passing", failing: "Failing", running: "Running", unknown: "Unknown", no_ci: "No Actions", error: "Data error"};
+const collectionWorkflowURL = "https://github.com/eco-ansible-content/eco-ansible-dashboard/actions/workflows/dashboard.yml";
 const rank = {error: 0, failing: 1, unknown: 2, running: 3, no_ci: 4, passing: 5};
 const view = {snapshot: null, mode: "repositories", loading: false, lastFetchFailed: false};
 const byId = id => document.getElementById(id);
@@ -77,19 +78,23 @@ function issueRow(issue) {
   const labelButtons = issue.labels.length ? `<div class="issue-labels">${issue.labels.map(label => `<button type="button" data-issue-label="${escape(label.toLowerCase())}">${escape(label)}</button>`).join("")}</div>` : "";
   return `<article class="issue-row"><div>${link(issue.url, `#${issue.number} ${issue.title}`, "issue-title")}<div class="issue-meta">${link(issue.repo.url, issue.repo.display_name || issue.repo.name)}<span>${escape(issue.repo.group || "Ungrouped")}</span><span>Opened ${escape(relative(issue.created_at))}</span><span>${issue.comments} ${issue.comments === 1 ? "comment" : "comments"}</span></div>${labelButtons}</div><div class="issue-triage">${issue.needs_triage ? '<strong>Needs triage</strong>' : '<span class="no-value">Other new issue</span>'}<p>${escape(issue.triage_reason || (issue.assignee_count ? "Assigned" : issue.comments ? "Has discussion" : "Not flagged by triage rule"))}</p></div></article>`;
 }
+function snapshotIsStale(snapshot) {
+  const timestamp = Date.parse(snapshot.generated_at), interval = Number(snapshot.refresh_minutes) || 30;
+  return !Number.isFinite(timestamp) || Date.now() - timestamp > Math.max(interval * 3, 90) * 60000;
+}
 function updateFreshness() {
   if (!view.snapshot) return;
   const snapshot = view.snapshot, timestamp = snapshot.generated_at, interval = Number(snapshot.refresh_minutes) || 30;
   byId("snapshot-time").textContent = timestamp ? `Updated ${relative(timestamp)}` : "No snapshot yet";
   byId("snapshot-time").title = timestamp ? new Date(timestamp).toLocaleString() : "";
-  byId("refresh-description").textContent = `Updates every ${interval} minutes`;
+  byId("refresh-description").textContent = `Collection scheduled every ${interval} minutes`;
   const incomplete = snapshot.repositories.filter(repo => repo.errors?.length).length;
   const messages = [];
   if (view.lastFetchFailed) messages.push("Reload failed. Showing the last snapshot loaded in this browser.");
-  if (!timestamp || !Number.isFinite(Date.parse(timestamp)) || Date.now() - Date.parse(timestamp) > Math.max(interval * 3, 90) * 60000) messages.push("This snapshot is out of date. Check the dashboard’s Actions workflow for a newer collection.");
+  if (snapshotIsStale(snapshot)) messages.push("Collection is overdue. Reload data only fetches the published snapshot; it cannot start a collection.");
   if (incomplete) messages.push(`${incomplete} ${incomplete === 1 ? "repository has" : "repositories have"} incomplete data. Open repository details for the collection errors.`);
   byId("notice").hidden = messages.length === 0;
-  byId("notice").textContent = messages.join(" ");
+  byId("notice").innerHTML = messages.map(escape).join(" ") + (snapshotIsStale(snapshot) ? ` ${link(collectionWorkflowURL, "Open the collection workflow on GitHub")} and run it on main to request fresh data.` : "");
 }
 function render() {
   const isIssues = view.mode === "issues";
@@ -151,10 +156,14 @@ function populateFilters(snapshot) {
   byId("issue-label").innerHTML = '<option value="">All labels</option>' + [...issueLabels].sort((a,b) => a[0].localeCompare(b[0])).map(([value,label]) => `<option value="${escape(value)}">${escape(label)}</option>`).join("");
   byId("issue-label").value = issueLabels.has(currentLabel) ? currentLabel : "";
 }
-async function loadSnapshot() {
+async function loadSnapshot(showFeedback = false) {
   if (view.loading) return;
+  const previousTimestamp = view.snapshot?.generated_at;
   view.loading = true;
   byId("reload").disabled = true;
+  byId("reload").textContent = "Reloading…";
+  byId("reload-feedback").hidden = !showFeedback;
+  if (showFeedback) byId("reload-feedback").textContent = "Checking for a newer published snapshot…";
   try {
     const response = await fetch(`data/status.json?t=${Date.now()}`, {cache: "no-store"});
     if (!response.ok) throw new Error("Snapshot unavailable");
@@ -166,8 +175,16 @@ async function loadSnapshot() {
     document.title = `${snapshot.title || "ECO Ansible"} · Team dashboard`;
     populateFilters(snapshot);
     render();
+    if (showFeedback) {
+      byId("reload-feedback").textContent = snapshot.generated_at === previousTimestamp
+        ? `No newer snapshot is published. Showing data collected ${relative(snapshot.generated_at)}.`
+        : `Loaded the published snapshot collected ${relative(snapshot.generated_at)}.`;
+    }
   } catch {
     view.lastFetchFailed = true;
+    if (showFeedback) byId("reload-feedback").textContent = view.snapshot
+      ? "Reload failed. Keeping the previously loaded snapshot. Try again."
+      : "Reload failed. No snapshot could be loaded. Try again.";
     if (view.snapshot) updateFreshness();
     else {
       const message = empty("Repository data is unavailable", "Use Reload data after the next successful dashboard deployment. For a local preview, run the collector before starting the web server.");
@@ -176,7 +193,7 @@ async function loadSnapshot() {
       byId("repo-list").setAttribute("aria-busy", "false");
       byId("shown-count").textContent = "No snapshot available";
     }
-  } finally { view.loading = false; byId("reload").disabled = false; }
+  } finally { view.loading = false; byId("reload").disabled = false; byId("reload").textContent = "Reload data"; }
 }
 function updateThemeButton() {
   const dark = document.documentElement.dataset.theme === "dark";
@@ -196,7 +213,7 @@ matchMedia("(prefers-color-scheme: dark)").addEventListener("change", event => {
   updateThemeButton();
 });
 for (const id of ["search", "domain", "status", "sort", "triage", "issue-label"]) byId(id).addEventListener(id === "search" ? "input" : "change", render);
-byId("reload").addEventListener("click", loadSnapshot);
+byId("reload").addEventListener("click", () => loadSnapshot(true));
 document.querySelectorAll("[data-view]").forEach(button => button.addEventListener("click", () => setView(button.dataset.view)));
 byId("triage-summary").addEventListener("click", () => {
   byId("search").value = ""; byId("domain").value = ""; byId("issue-label").value = ""; byId("triage").value = "needs"; setView("issues");
