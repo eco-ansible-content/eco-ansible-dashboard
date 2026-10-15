@@ -76,7 +76,7 @@ h1 { font-family: "Red Hat Display", sans-serif; font-size: 36px; line-height: 1
 .toolbar label { display: flex; flex-direction: column; gap: 8px; font-size: 14px; font-weight: 500; color: var(--ink); min-width: 0; }
 .toolbar input, .toolbar select { width: 100%; min-width: 0; height: 48px; padding: 8px 12px; font-size: 16px; border-radius: 0; }
 .view-description { margin: 0; padding: 0 24px 24px; color: var(--muted); font-size: 14px; }
-.column-labels, .repo-summary { display: grid; grid-template-columns: minmax(210px, 2fr) 100px minmax(200px, 1.8fr) 85px 48px 105px; gap: 20px; align-items: center; }
+.column-labels, .repo-summary { display: grid; grid-template-columns: minmax(210px, 2fr) 100px minmax(200px, 1.8fr) 85px 85px 48px 105px; gap: 20px; align-items: center; }
 .column-labels { padding: 16px 24px; border-top: 1px solid var(--border); border-bottom: 1px solid var(--border); color: var(--ink); font-size: 14px; font-weight: 700; }
 .domain-heading { display: flex; align-items: center; justify-content: space-between; gap: 16px; padding: 12px 24px; background: var(--raised); border-bottom: 1px solid var(--border); }
 .domain-heading h2 { font-size: 16px; font-weight: 700; margin: 0; }
@@ -156,7 +156,7 @@ footer { margin-top: 24px; padding-top: 24px; border-top: 1px solid var(--border
 @media (max-width: 1150px) {
   .toolbar { grid-template-columns: repeat(3, minmax(0, 1fr)); }
   .search-label { grid-column: 1 / -1; }
-  .column-labels, .repo-summary { grid-template-columns: minmax(175px, 1.8fr) 95px minmax(180px, 1.8fr) 75px 42px 80px; gap: 12px; }
+  .column-labels, .repo-summary { grid-template-columns: minmax(175px, 1.8fr) 95px minmax(180px, 1.8fr) 75px 75px 42px 80px; gap: 12px; }
   .page-heading { align-items: flex-start; }
   .snapshot { flex-direction: column; align-items: flex-end; gap: 8px; }
 }

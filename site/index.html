@@ -12,8 +12,8 @@
   <link rel="icon" href="favicon.svg" type="image/svg+xml">
   <link rel="preload" href="fonts/RedHatText-Regular.woff2" as="font" type="font/woff2" crossorigin>
   <link rel="preload" href="fonts/RedHatDisplay-Medium.woff2" as="font" type="font/woff2" crossorigin>
-  <link rel="stylesheet" href="styles.css?v=745177dd272e">
-  <script defer src="app.js?v=d2c70c2ece33"></script>
+  <link rel="stylesheet" href="styles.css?v=17d1305c020d">
+  <script defer src="app.js?v=3c2b7fb1bc1f"></script>
 </head>
 <body>
   <a class="skip-link" href="#dashboard">Skip to dashboard</a>
@@ -64,7 +64,7 @@
         <p>When results differ, the priority is <strong>Failing → Running → Unknown → Passing</strong>. A collection error overrides the result with <strong>Data error</strong>. “Actions need attention” counts repositories marked Failing, Unknown, or Data error.</p>
         <p><strong>Unknown does not necessarily mean something is broken.</strong> A release workflow that runs only for tags may have no run on the latest default-branch commit. Open repository details to inspect individual workflows and their GitHub links.</p>
         <p><strong>Core:</strong> supported versions come from <code>meta/runtime.yml</code>. CI tested versions are configured coverage from public CI definitions, including Azure Pipelines and reusable workflows; they do not imply a successful run. Open repository details for source links.</p>
-        <p><strong>New issues:</strong> open issues created in the past seven days. Needs triage means a needs-triage label, or no assignee/comments and no triaged label. This is a configurable signal of likely pending work, not proof that nobody has read the issue.</p>
+        <p><strong>Issues:</strong> New issues counts open issues created in the past seven days. Total open issues counts all currently open issues, regardless of when they were created. Both counts exclude pull requests. Needs triage means a needs-triage label, or no assignee/comments and no triaged label. This is a configurable signal of likely pending work, not proof that nobody has read the issue.</p>
       </div>
     </details>
     <footer>Public repository data · Collected by GitHub Actions</footer>

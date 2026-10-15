@@ -63,6 +63,7 @@ function repoRow(repo) {
     <div class="actions-cell">${badge(effectiveState(repo))}</div>
     <div class="core-cell">${coreCell(repo)}</div>
     <div class="metrics-cell">${newCount == null ? '<span class="no-value">—</span>' : `<a class="number-link issue-count-link" href="#new-issues" data-repo="${escape(repo.full_name)}" aria-label="Show ${newCount} new ${newCount === 1 ? "issue" : "issues"} for ${escape(repo.name)}">${newCount}</a>`}<span class="mobile-label">new issues · 7d</span>${repo.issue_activity?.untriaged_count ? `<div class="cell-note">${repo.issue_activity.untriaged_count} ${repo.issue_activity.untriaged_count === 1 ? "needs" : "need"} triage</div>` : ""}</div>
+    <div class="metrics-cell open-issues-cell">${repo.open_issues == null ? '<span class="no-value">—</span>' : `<a class="number-link" href="${escape(safeURL(repo.url + "/issues?q=is%3Aissue%20is%3Aopen"))}" target="_blank" rel="noopener noreferrer" aria-label="Show ${repo.open_issues} total open ${repo.open_issues === 1 ? "issue" : "issues"} for ${escape(repo.name)}">${repo.open_issues}</a>`}<span class="mobile-label">total open issues</span></div>
     <div class="metrics-cell">${repo.open_prs == null ? '<span class="no-value">—</span>' : link(repo.url + "/pulls", repo.open_prs, "number-link")}<span class="mobile-label">open PRs</span></div>
     <div class="release-cell"><span class="mobile-label">Release</span>${repo.release ? link(repo.release.url, repo.release.tag, "release-link") : '<span class="no-value">No release</span>'}</div>
     </div><details class="details"><summary>Repository details</summary><div class="detail-body">
@@ -128,7 +129,7 @@ function render() {
       return delta || a.full_name.localeCompare(b.full_name);
     });
     const groups = [...new Set([...(view.snapshot.groups || []), ...rows.map(repo => repo.group || "Ungrouped")])];
-    const headings = '<div class="column-labels" aria-hidden="true"><span>Repository</span><span>Actions</span><span>Ansible Core</span><span>New issues<br>past 7 days</span><span>PRs</span><span>Release</span></div>';
+    const headings = '<div class="column-labels" aria-hidden="true"><span>Repository</span><span>Actions</span><span>Ansible Core</span><span>New issues<br>past 7 days</span><span>Total open<br>issues</span><span>PRs</span><span>Release</span></div>';
     const grouped = groups.map(group => {
       const members = rows.filter(repo => (repo.group || "Ungrouped") === group);
       return members.length ? `<section class="domain-group" aria-label="${escape(group)} repositories"><div class="domain-heading"><h2>${escape(group)}</h2><span>${members.length} ${members.length === 1 ? "repository" : "repositories"}</span></div>${members.map(repoRow).join("")}</section>` : "";
