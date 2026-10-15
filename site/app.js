@@ -210,6 +210,9 @@ byId("issue-list").addEventListener("click", event => {
   const button = event.target.closest("[data-issue-label]");
   if (button) { byId("issue-label").value = button.dataset.issueLabel; render(); }
 });
+document.querySelectorAll("[data-action-state]").forEach(cell => {
+  cell.innerHTML = badge(cell.dataset.actionState);
+});
 updateThemeButton();
 setInterval(updateFreshness, 60000);
 loadSnapshot();

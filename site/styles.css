@@ -128,6 +128,12 @@ h1 { font-family: "Red Hat Display", sans-serif; font-size: 36px; line-height: 1
 .reading-guide > summary { font-size: 15px; }
 .reading-guide > div { max-width: 75ch; font-size: 15px; color: var(--muted); }
 .reading-guide p { margin: 12px 0; }
+.status-guide { width: 100%; border-collapse: collapse; margin: 20px 0; }
+.status-guide caption { text-align: left; margin-bottom: 8px; color: var(--ink); font: 500 18px/1.4 "Red Hat Display", sans-serif; }
+.status-guide th, .status-guide td { padding: 12px 0; border-bottom: 1px solid var(--border); text-align: left; vertical-align: top; }
+.status-guide th { color: var(--ink); font-weight: 500; }
+.status-guide th:first-child { width: 132px; padding-right: 20px; }
+.status-guide .badge { white-space: nowrap; }
 code { font-size: 14px; }
 footer { margin-top: 24px; padding-top: 24px; border-top: 1px solid var(--border); color: var(--muted); font-size: 14px; }
 

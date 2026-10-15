@@ -12,8 +12,8 @@
   <link rel="icon" href="favicon.svg" type="image/svg+xml">
   <link rel="preload" href="fonts/RedHatText-Regular.woff2" as="font" type="font/woff2" crossorigin>
   <link rel="preload" href="fonts/RedHatDisplay-Medium.woff2" as="font" type="font/woff2" crossorigin>
-  <link rel="stylesheet" href="styles.css?v=3cbf4bd342e1">
-  <script defer src="app.js"></script>
+  <link rel="stylesheet" href="styles.css?v=745177dd272e">
+  <script defer src="app.js?v=d2c70c2ece33"></script>
 </head>
 <body>
   <a class="skip-link" href="#dashboard">Skip to dashboard</a>
@@ -45,7 +45,28 @@
       <div id="issue-list" class="content-list" aria-live="polite" hidden></div>
       <div class="list-footer"><span id="shown-count">Loading repositories…</span><span id="refresh-description">Updates every 30 minutes</span></div>
     </section>
-    <details class="reading-guide"><summary>How to read these results</summary><div><p><strong>Actions:</strong> passing means every monitored GitHub Actions workflow succeeded on the current default-branch commit. Missing, skipped, or cancelled runs are unknown. External CI results are not included in this status.</p><p><strong>Core:</strong> supported versions come from <code>meta/runtime.yml</code>. CI tested versions are configured coverage from public CI definitions, including Azure Pipelines and reusable workflows; they do not imply a successful run. Open repository details for source links.</p><p><strong>New issues:</strong> open issues created in the past seven days. Needs triage means a needs-triage label, or no assignee/comments and no triaged label. This is a configurable signal of likely pending work, not proof that nobody has read the issue.</p></div></details>
+    <details class="reading-guide">
+      <summary>How to read these results</summary>
+      <div>
+        <p><strong>Actions:</strong> summarizes GitHub Actions for the latest commit on each repository’s default branch, using the newest run of each monitored workflow. All active workflows are monitored unless specific workflows are selected. External CI and PR-specific checks are not included.</p>
+        <table class="status-guide">
+          <caption>Actions statuses</caption>
+          <thead><tr><th scope="col">Status</th><th scope="col">Meaning</th></tr></thead>
+          <tbody>
+            <tr><th scope="row" data-action-state="passing">Passing</th><td>Every monitored workflow completed successfully on the current commit.</td></tr>
+            <tr><th scope="row" data-action-state="failing">Failing</th><td>At least one workflow failed, timed out, failed to start, or requires action.</td></tr>
+            <tr><th scope="row" data-action-state="running">Running</th><td>At least one workflow is running, queued, or waiting, with no known failure.</td></tr>
+            <tr><th scope="row" data-action-state="unknown">Unknown</th><td>A workflow has no run for the current commit, was cancelled or skipped, or returned a neutral or unrecognized result. A configured workflow that cannot be found also produces this status.</td></tr>
+            <tr><th scope="row" data-action-state="no_ci">No Actions</th><td>There are no active workflows being monitored.</td></tr>
+            <tr><th scope="row" data-action-state="error">Data error</th><td>Some repository data could not be collected. This can include other metrics, such as issues or pull requests, even when workflow results are available.</td></tr>
+          </tbody>
+        </table>
+        <p>When results differ, the priority is <strong>Failing → Running → Unknown → Passing</strong>. A collection error overrides the result with <strong>Data error</strong>. “Actions need attention” counts repositories marked Failing, Unknown, or Data error.</p>
+        <p><strong>Unknown does not necessarily mean something is broken.</strong> A release workflow that runs only for tags may have no run on the latest default-branch commit. Open repository details to inspect individual workflows and their GitHub links.</p>
+        <p><strong>Core:</strong> supported versions come from <code>meta/runtime.yml</code>. CI tested versions are configured coverage from public CI definitions, including Azure Pipelines and reusable workflows; they do not imply a successful run. Open repository details for source links.</p>
+        <p><strong>New issues:</strong> open issues created in the past seven days. Needs triage means a needs-triage label, or no assignee/comments and no triaged label. This is a configurable signal of likely pending work, not proof that nobody has read the issue.</p>
+      </div>
+    </details>
     <footer>Public repository data · Collected by GitHub Actions</footer>
   </main>
 </body>
