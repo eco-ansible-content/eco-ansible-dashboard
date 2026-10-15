@@ -196,7 +196,7 @@
       "kind": "nav",
       "refersTo": "view-navigation",
       "description": "Pressed-state native buttons use the RHDS red selected underline and a neutral baseline.",
-      "html": "<nav class=\"ds-views\" aria-label=\"Dashboard views\"><button class=\"ds-view ds-view-active\" type=\"button\" aria-pressed=\"true\">Repositories <span>\u2014</span></button><button class=\"ds-view\" type=\"button\" aria-pressed=\"false\">New issues <span>\u2014</span></button></nav>",
+      "html": "<nav class=\"ds-views\" aria-label=\"Dashboard views\"><button class=\"ds-view ds-view-active\" type=\"button\" aria-pressed=\"true\">Repositories <span>—</span></button><button class=\"ds-view\" type=\"button\" aria-pressed=\"false\">New issues <span>—</span></button></nav>",
       "css": ".ds-views{display:flex;border-bottom:1px solid var(--border,#c7c7c7);}.ds-view{font:500 16px/1.5 \"Red Hat Text\", \"Segoe UI\", sans-serif;min-height:44px;padding:16px 24px;margin-bottom:-1px;border:0;border-bottom:4px solid transparent;border-radius:0;background:transparent;color:var(--muted,#4d4d4d);cursor:pointer;}.ds-view span{font-size:14px;margin-left:8px;color:var(--muted,#4d4d4d);font-variant-numeric:tabular-nums;}.ds-view-active{color:var(--ink,#151515);border-bottom-color:var(--selected,#ee0000);font-weight:700;}.ds-view:hover{color:var(--ink,#151515);border-bottom-color:#707070;background:var(--raised,#f2f2f2);}.ds-view-active:hover{border-bottom-color:var(--selected,#ee0000);}.ds-view:focus-visible{outline:3px solid var(--focus,#0066cc);outline-offset:3px;}@media(prefers-reduced-motion:no-preference){.ds-view{transition:border-color 160ms ease-out;}}@media(max-width:600px){.ds-view{padding:12px 16px;}}"
     },
     {
@@ -244,7 +244,7 @@
     "rules": [
       {
         "name": "The Selection and Action Rule",
-        "body": "Reserve the red accent for the selected view; use blue for links and focus indicators.",
+        "body": "Reserve UI red for the selected view; the official Red Hat logo retains its brand red. Use blue for links and focus indicators.",
         "section": "colors"
       },
       {

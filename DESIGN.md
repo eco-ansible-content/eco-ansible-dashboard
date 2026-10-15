@@ -164,7 +164,7 @@ The palette uses neutral surfaces, a concentrated red selection cue, blue intera
 - **Warning:** Unknown, Data error, collection notices, and triage signals.
 - **Secondary neutral:** No Actions.
 
-**The Selection and Action Rule.** Reserve the red accent for the selected view; use blue for links and focus indicators.
+**The Selection and Action Rule.** Reserve UI red for the selected view; the official Red Hat logo retains its brand red. Use blue for links and focus indicators.
 
 **The Status Has Words Rule.** Keep the status icon and readable label together; color is an additional signal.
 
@@ -200,6 +200,10 @@ The dashboard has no box shadows. Depth comes from the black masthead, page-vers
 Action buttons and issue-label controls use the subtly softened default radius. Workspace panels, view controls, and filter inputs/selects are square. The view's selected underline is (4px); structural borders and dividers are (1px). Preserve this distinction between controls and information containers.
 
 ## Components
+
+### Masthead logo
+
+Place the unmodified official red-and-black fedora before ECO Ansible. The image occupies (48px) square on desktop and (32px) square below the small breakpoint, with clear space from the title. Keep its original aspect ratio and colors in both themes; the masthead remains dark. The header wraps its actions when needed on narrow screens. The accessible home link includes Red Hat and ECO Ansible. Asset source and trademark attribution are in `site/assets/README.md`.
 
 ### Buttons
 
