@@ -146,3 +146,10 @@ The **New issues** view includes open issues created in the past seven days, exc
 **Supported** Core versions come only from the current default branch's `meta/runtime.yml` `requires_ansible` field. **CI tested** versions mean configured coverage from explicit Ansible Core inputs, environment variables, and matrices in test jobs in active GitHub Actions workflows, directly referenced matrix files, public reusable workflows (one level), and Azure Pipelines Ansible-stage test parameters. Comments, disabled jobs, Python matrices, and unresolved expressions are not treated as Core versions. Sources link to the inspected commit or reusable workflow ref. CI coverage is not a statement that all tests passed, and unsupported CI formats appear as **Not declared** rather than inferred coverage. This is default-branch compatibility, not release-specific compatibility.
 
 The interface uses a larger type scale and search field, shows detailed workflow and activity information only on expansion, and supports light/dark themes. It follows the system preference initially and stores an explicit theme choice in browser local storage. The redundant header logo has been removed.
+
+
+## Red Hat visual language
+
+The interface follows the [Red Hat design system](https://ux.redhat.com/) through locally defined design tokens and native HTML controls. It uses self-hosted Red Hat Display headings and Red Hat Text UI typography, neutral light/dark surfaces, a black masthead, red selected-view indicators, blue interactive elements, and shape-plus-label status indicators. It does not require the RHDS JavaScript component runtime or a third-party font CDN.
+
+Reference guidance: [font family](https://ux.redhat.com/foundations/typography/font-family/), [colors](https://ux.redhat.com/foundations/color/), [tabs](https://ux.redhat.com/elements/tabs/style/), [buttons](https://ux.redhat.com/elements/button/style/), and [borders](https://ux.redhat.com/tokens/border/). Font sources and redistribution notices are in `site/fonts/`. `DESIGN.md` records the implemented tokens and component rules for future changes.

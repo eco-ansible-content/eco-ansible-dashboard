@@ -1,0 +1,274 @@
+{
+  "schemaVersion": 2,
+  "generatedAt": "2026-10-15T05:57:58.560261+00:00",
+  "title": "Design System: ECO Ansible dashboard",
+  "extensions": {
+    "colorMeta": {
+      "brand-red": {
+        "role": "primary",
+        "displayName": "Brand red"
+      },
+      "selected-dark": {
+        "role": "primary",
+        "displayName": "Selected dark"
+      },
+      "interactive-light": {
+        "role": "secondary",
+        "displayName": "Interactive light"
+      },
+      "interactive-dark": {
+        "role": "secondary",
+        "displayName": "Interactive dark"
+      },
+      "interactive-hover-light": {
+        "role": "secondary",
+        "displayName": "Interactive hover light"
+      },
+      "interactive-hover-dark": {
+        "role": "secondary",
+        "displayName": "Interactive hover dark"
+      },
+      "neutral-white": {
+        "role": "neutral",
+        "displayName": "Neutral white"
+      },
+      "neutral-canvas-light": {
+        "role": "neutral",
+        "displayName": "Neutral canvas light"
+      },
+      "neutral-charcoal": {
+        "role": "neutral",
+        "displayName": "Neutral charcoal"
+      },
+      "neutral-panel-dark": {
+        "role": "neutral",
+        "displayName": "Neutral panel dark"
+      },
+      "neutral-raised-dark": {
+        "role": "neutral",
+        "displayName": "Neutral raised dark"
+      },
+      "neutral-secondary-light": {
+        "role": "neutral",
+        "displayName": "Neutral secondary light"
+      },
+      "neutral-border-light": {
+        "role": "neutral",
+        "displayName": "Neutral border light"
+      },
+      "neutral-border-dark": {
+        "role": "neutral",
+        "displayName": "Neutral border dark"
+      },
+      "neutral-field-dark": {
+        "role": "neutral",
+        "displayName": "Neutral field dark"
+      },
+      "neutral-hover-light": {
+        "role": "neutral",
+        "displayName": "Neutral hover light"
+      },
+      "neutral-hover-dark": {
+        "role": "neutral",
+        "displayName": "Neutral hover dark"
+      },
+      "masthead-hover": {
+        "role": "neutral",
+        "displayName": "Masthead hover"
+      },
+      "success-light": {
+        "role": "semantic",
+        "displayName": "Success light"
+      },
+      "success-dark": {
+        "role": "semantic",
+        "displayName": "Success dark"
+      },
+      "warning-light": {
+        "role": "semantic",
+        "displayName": "Warning light"
+      },
+      "warning-dark": {
+        "role": "semantic",
+        "displayName": "Warning dark"
+      },
+      "failure-light": {
+        "role": "semantic",
+        "displayName": "Failure light"
+      },
+      "failure-dark": {
+        "role": "semantic",
+        "displayName": "Failure dark"
+      },
+      "info-light": {
+        "role": "semantic",
+        "displayName": "Info light"
+      },
+      "info-dark": {
+        "role": "semantic",
+        "displayName": "Info dark"
+      }
+    },
+    "typographyMeta": {
+      "headline": {
+        "displayName": "Headline",
+        "purpose": "Page heading."
+      },
+      "headline-mobile": {
+        "displayName": "Headline mobile",
+        "purpose": "Page heading at 600px and below."
+      },
+      "brand": {
+        "displayName": "Brand",
+        "purpose": "Masthead brand."
+      },
+      "metric": {
+        "displayName": "Metric",
+        "purpose": "Inline overview totals."
+      },
+      "detail-title": {
+        "displayName": "Detail title",
+        "purpose": "Expanded detail section titles."
+      },
+      "body": {
+        "displayName": "Body",
+        "purpose": "Reading copy and inherited control font."
+      },
+      "label": {
+        "displayName": "Label",
+        "purpose": "Field labels and semantic statuses."
+      },
+      "small": {
+        "displayName": "Small",
+        "purpose": "Secondary metadata and source context."
+      }
+    },
+    "shadows": [],
+    "motion": [
+      {
+        "name": "view-underline",
+        "value": "border-color 160ms ease-out",
+        "purpose": "View navigation underline transition; enabled only under prefers-reduced-motion: no-preference."
+      }
+    ],
+    "breakpoints": [
+      {
+        "name": "toolbar-stack",
+        "value": "1150px"
+      },
+      {
+        "name": "repository-stack",
+        "value": "1000px"
+      },
+      {
+        "name": "mobile",
+        "value": "600px"
+      }
+    ]
+  },
+  "components": [
+    {
+      "name": "Neutral action",
+      "kind": "button",
+      "refersTo": "button-neutral",
+      "description": "The shipped Reload data action, using neutral surfaces and the inherited body family.",
+      "html": "<button class=\"ds-action\" type=\"button\">Reload data</button>",
+      "css": ".ds-action{font:500 15px/1.5 \"Red Hat Text\", \"Segoe UI\", sans-serif;min-height:44px;padding:9px 14px;border:1px solid var(--field-border,#707070);border-radius:var(--rh-border-radius-default,3px);cursor:pointer;background:var(--surface,#ffffff);color:var(--ink,#151515);}.ds-action:hover{background:var(--raised,#f2f2f2);}.ds-action:focus-visible{outline:3px solid var(--focus,#0066cc);outline-offset:3px;}.ds-action:disabled{opacity:.6;cursor:wait;}"
+    },
+    {
+      "name": "Masthead theme action",
+      "kind": "button",
+      "refersTo": "button-masthead",
+      "description": "The theme control on the persistent black masthead.",
+      "html": "<div class=\"ds-masthead\"><button class=\"ds-theme\" type=\"button\" aria-pressed=\"false\">Dark mode</button></div>",
+      "css": ".ds-masthead{padding:16px;background:#151515;}.ds-theme{font:500 16px/1.5 \"Red Hat Text\", \"Segoe UI\", sans-serif;min-height:44px;padding:9px 14px;border:1px solid var(--field-border,#707070);border-radius:var(--rh-border-radius-default,3px);cursor:pointer;color:#ffffff;background:transparent;border-color:#c7c7c7;}.ds-theme:hover{background:#383838;border-color:#ffffff;}.ds-theme:focus-visible{outline:3px solid #92c5f9;outline-offset:3px;}"
+    },
+    {
+      "name": "Labelled search and select",
+      "kind": "input",
+      "refersTo": "filter-field",
+      "description": "Square native filter fields with persistent labels and a 48px control height.",
+      "html": "<div class=\"ds-fields\"><label class=\"ds-field\">Search<input type=\"search\" placeholder=\"Search repositories, issues, or labels\" aria-label=\"Search repositories, issues, or labels\"></label><label class=\"ds-field\">Domain<select aria-label=\"Filter by domain\"><option>All domains</option></select></label></div>",
+      "css": ".ds-fields{display:flex;flex-wrap:wrap;gap:16px;}.ds-field{display:flex;flex-direction:column;gap:8px;font:500 14px/1.5 \"Red Hat Text\", \"Segoe UI\", sans-serif;color:var(--ink,#151515);min-width:0;flex:1 1 180px;}.ds-field input,.ds-field select{width:100%;min-width:0;height:48px;padding:8px 12px;border:1px solid var(--field-border,#707070);border-radius:0;background:var(--surface,#ffffff);color:var(--ink,#151515);font:400 16px/1.5 \"Red Hat Text\", \"Segoe UI\", sans-serif;}.ds-field input{caret-color:var(--accent,#0066cc);}.ds-field select{cursor:pointer;}.ds-field input::placeholder{color:var(--muted,#4d4d4d);opacity:1;}.ds-field input:hover,.ds-field select:hover{border-bottom-color:var(--accent,#0066cc);}.ds-field input:focus-visible,.ds-field select:focus-visible{outline:3px solid var(--focus,#0066cc);outline-offset:3px;}"
+    },
+    {
+      "name": "View navigation",
+      "kind": "nav",
+      "refersTo": "view-navigation",
+      "description": "Pressed-state native buttons use the RHDS red selected underline and a neutral baseline.",
+      "html": "<nav class=\"ds-views\" aria-label=\"Dashboard views\"><button class=\"ds-view ds-view-active\" type=\"button\" aria-pressed=\"true\">Repositories <span>\u2014</span></button><button class=\"ds-view\" type=\"button\" aria-pressed=\"false\">New issues <span>\u2014</span></button></nav>",
+      "css": ".ds-views{display:flex;border-bottom:1px solid var(--border,#c7c7c7);}.ds-view{font:500 16px/1.5 \"Red Hat Text\", \"Segoe UI\", sans-serif;min-height:44px;padding:16px 24px;margin-bottom:-1px;border:0;border-bottom:4px solid transparent;border-radius:0;background:transparent;color:var(--muted,#4d4d4d);cursor:pointer;}.ds-view span{font-size:14px;margin-left:8px;color:var(--muted,#4d4d4d);font-variant-numeric:tabular-nums;}.ds-view-active{color:var(--ink,#151515);border-bottom-color:var(--selected,#ee0000);font-weight:700;}.ds-view:hover{color:var(--ink,#151515);border-bottom-color:#707070;background:var(--raised,#f2f2f2);}.ds-view-active:hover{border-bottom-color:var(--selected,#ee0000);}.ds-view:focus-visible{outline:3px solid var(--focus,#0066cc);outline-offset:3px;}@media(prefers-reduced-motion:no-preference){.ds-view{transition:border-color 160ms ease-out;}}@media(max-width:600px){.ds-view{padding:12px 16px;}}"
+    },
+    {
+      "name": "Workspace and repository row",
+      "kind": "card",
+      "refersTo": "workspace-row",
+      "description": "A flat square workspace with a raised domain header, source links, and explicit Core labels; names are illustrative.",
+      "html": "<section class=\"ds-workspace\" aria-label=\"Repository browser example\"><div class=\"ds-domain\"><h2>Domain</h2></div><article class=\"ds-row\"><div><a class=\"ds-repo\" href=\"https://github.com/eco-ansible-content/eco-ansible-dashboard\">Repository name</a><div class=\"ds-owner\">Repository owner</div></div><dl class=\"ds-core\"><div><dt>Supported</dt><dd>Not declared</dd></div><div><dt>CI tested</dt><dd>Not declared</dd></div></dl></article></section>",
+      "css": ".ds-workspace{background:var(--surface,#ffffff);color:var(--ink,#151515);border:1px solid var(--border,#c7c7c7);border-radius:0;font:400 16px/1.5 \"Red Hat Text\", \"Segoe UI\", sans-serif;}.ds-domain{padding:12px 24px;background:var(--raised,#f2f2f2);border-bottom:1px solid var(--border,#c7c7c7);}.ds-domain h2{font-size:16px;font-weight:700;margin:0;}.ds-row{display:flex;flex-wrap:wrap;gap:20px;padding:20px 24px;}.ds-row:hover{background:var(--row-hover,#fafafa);}.ds-repo{font-size:16px;font-weight:500;color:var(--accent,#0066cc);text-decoration:none;overflow-wrap:anywhere;}.ds-repo:hover{color:var(--accent-hover,#004080);text-decoration:underline;text-underline-offset:.2em;}.ds-repo:focus-visible{outline:3px solid var(--focus,#0066cc);outline-offset:3px;}.ds-owner{color:var(--muted,#4d4d4d);font-size:14px;margin-top:4px;}.ds-core{margin:0;font-size:14px;}.ds-core>div{display:flex;gap:8px;}.ds-core dt{min-width:66px;color:var(--muted,#4d4d4d);}.ds-core dd{margin:0;color:var(--muted,#4d4d4d);}"
+    },
+    {
+      "name": "Issue label filter",
+      "kind": "chip",
+      "refersTo": "issue-label",
+      "description": "Issue labels are compact native filter buttons, rather than decorative pills.",
+      "html": "<button class=\"ds-label\" type=\"button\">needs-triage</button>",
+      "css": ".ds-label{font:400 14px/1.5 \"Red Hat Text\", \"Segoe UI\", sans-serif;min-height:34px;padding:4px 10px;background:var(--raised,#f2f2f2);color:var(--ink,#151515);border:1px solid var(--border,#c7c7c7);border-radius:var(--rh-border-radius-default,3px);cursor:pointer;}.ds-label:hover{background:var(--raised,#f2f2f2);}.ds-label:focus-visible{outline:3px solid var(--focus,#0066cc);outline-offset:3px;}@media(max-width:600px){.ds-label{min-height:44px;}}"
+    },
+    {
+      "name": "Semantic status labels",
+      "kind": "custom",
+      "refersTo": "status-label",
+      "description": "The shipped status paths pair semantic color with a readable label; they are not interactive.",
+      "html": "<div class=\"ds-statuses\"><span class=\"ds-status ds-passing\"><svg viewBox=\"0 0 16 16\" aria-hidden=\"true\"><circle cx=\"8\" cy=\"8\" r=\"6.2\"/><path d=\"m4.8 8 2.1 2.2 4.4-4.5\"/></svg>Passing</span><span class=\"ds-status ds-failing\"><svg viewBox=\"0 0 16 16\" aria-hidden=\"true\"><circle cx=\"8\" cy=\"8\" r=\"6.2\"/><path d=\"m5.8 5.8 4.4 4.4m0-4.4-4.4 4.4\"/></svg>Failing</span><span class=\"ds-status ds-running\"><svg viewBox=\"0 0 16 16\" aria-hidden=\"true\"><circle cx=\"8\" cy=\"8\" r=\"6.2\"/><path d=\"M8 4.3V8l2.5 1.5\"/></svg>Running</span><span class=\"ds-status ds-unknown\"><svg viewBox=\"0 0 16 16\" aria-hidden=\"true\"><path d=\"m8 1.5 7 12H1zM8 6v3.2m0 2v.2\"/></svg>Unknown</span><span class=\"ds-status ds-no-ci\"><svg viewBox=\"0 0 16 16\" aria-hidden=\"true\"><circle cx=\"8\" cy=\"8\" r=\"6.2\"/><path d=\"M4.5 8h7\"/></svg>No Actions</span><span class=\"ds-status ds-unknown\"><svg viewBox=\"0 0 16 16\" aria-hidden=\"true\"><path d=\"m8 1.5 7 12H1zM8 6v3.2m0 2v.2\"/></svg>Data error</span></div>",
+      "css": ".ds-statuses{display:flex;flex-wrap:wrap;gap:16px;}.ds-status{display:inline-flex;align-items:center;gap:7px;font:500 14px/1.5 \"Red Hat Text\", \"Segoe UI\", sans-serif;}.ds-status svg{width:16px;height:16px;flex-shrink:0;fill:none;stroke:currentColor;stroke-width:1.7;stroke-linecap:round;stroke-linejoin:round;}.ds-passing{color:var(--success,#3d7317);}.ds-failing{color:var(--failure,#b1380b);}.ds-running{color:var(--info,#5e40be);}.ds-unknown{color:var(--warning,#795600);}.ds-no-ci{color:var(--muted,#4d4d4d);}"
+    },
+    {
+      "name": "Repository details disclosure",
+      "kind": "custom",
+      "refersTo": "repository-details",
+      "description": "Native details retain keyboard behavior and disclose raised, source-aware content.",
+      "html": "<details class=\"ds-details\"><summary>Repository details</summary><div class=\"ds-detail-body\"><section><h3>Ansible Core compatibility</h3><p>Supported: Not declared</p><p>CI tested: No explicit versions found in CI definitions</p><p>From the current default branch; configured test coverage does not imply passing runs.</p></section></div></details>",
+      "css": ".ds-details{font:400 16px/1.5 \"Red Hat Text\", \"Segoe UI\", sans-serif;color:var(--ink,#151515);}.ds-details>summary{cursor:pointer;color:var(--accent,#0066cc);font-size:14px;width:fit-content;min-height:32px;padding-top:5px;}.ds-details>summary:hover{text-decoration:underline;}.ds-details>summary:focus-visible{outline:3px solid var(--focus,#0066cc);outline-offset:3px;}.ds-detail-body{margin-top:8px;padding:24px;background:var(--raised,#f2f2f2);}.ds-detail-body h3{margin:0 0 8px;font:500 18px/1.4 \"Red Hat Display\",sans-serif;}.ds-detail-body p{font-size:14px;margin:5px 0;color:var(--muted,#4d4d4d);overflow-wrap:anywhere;}@media(max-width:600px){.ds-details>summary{min-height:44px;}.ds-detail-body{padding:14px;}}"
+    }
+  ],
+  "narrative": {
+    "northStar": "Red Hat team workspace",
+    "overview": "A precise, approachable team workspace grounded in the user-selected Red Hat design language. The black masthead, neutral content surfaces, Red Hat typefaces, red selected-view accent, and blue interactions give dense repository information a consistent visual hierarchy.\n\nThis is a local implementation in native HTML, CSS, and JavaScript, rather than an installation of the RHDS component runtime. The shipped stylesheet is the authority for implementation details; official RHDS references explain the selected language. Light and dark themes use the same structure and adapt their neutral, interaction, and status colors.",
+    "keyCharacteristics": [
+      "Black masthead with neutral light and dark work surfaces.",
+      "Red Hat Display for prominent headings and metrics; Red Hat Text for body copy and controls.",
+      "Red selected-view underline, blue interactions, and explicit icon-and-label statuses.",
+      "Flat, square information panels with subtly rounded action controls."
+    ],
+    "rules": [
+      {
+        "name": "The Selection and Action Rule",
+        "body": "Reserve the red accent for the selected view; use blue for links and focus indicators.",
+        "section": "colors"
+      },
+      {
+        "name": "The Flat Workspace Rule",
+        "body": "Separate information with neutral surface changes and one-pixel dividers; do not add ornamental shadows.",
+        "section": "elevation"
+      },
+      {
+        "name": "The Status Has Words Rule",
+        "body": "Keep the status icon and readable label together; color is an additional signal.",
+        "section": "colors"
+      }
+    ],
+    "dos": [
+      "Do inherit Red Hat Text on buttons, inputs, and selects.",
+      "Do use the theme variables for surfaces, text, borders, links, and statuses.",
+      "Do keep selected-view styling and the pressed state synchronized.",
+      "Do retain visible labels, keyboard focus, source links, and the distinction between declared support, configured CI coverage, and Actions outcomes."
+    ],
+    "donts": [
+      "Don't replace the black masthead or Red Hat typefaces with a new visual identity.",
+      "Don't turn workspace panels or filter fields into rounded cards or pill controls.",
+      "Don't communicate status through color alone or present configured CI coverage as a successful test run.",
+      "Don't claim that the local native controls are the RHDS component runtime."
+    ]
+  }
+}

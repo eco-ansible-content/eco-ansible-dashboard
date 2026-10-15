@@ -24,7 +24,18 @@ function relative(value) {
 }
 function effectiveState(repo) { return repo.errors?.length ? "error" : (repo.ci?.state || "unknown"); }
 function attention(repo) { return ["failing", "unknown", "error"].includes(effectiveState(repo)); }
-function badge(state) { const known = labels[state] ? state : "unknown"; return `<span class="badge ${known}">${labels[known]}</span>`; }
+const statusIcons = {
+  passing: '<circle cx="8" cy="8" r="6.2"/><path d="m4.8 8 2.1 2.2 4.4-4.5"/>',
+  failing: '<circle cx="8" cy="8" r="6.2"/><path d="m5.8 5.8 4.4 4.4m0-4.4-4.4 4.4"/>',
+  running: '<circle cx="8" cy="8" r="6.2"/><path d="M8 4.3V8l2.5 1.5"/>',
+  unknown: '<path d="m8 1.5 7 12H1zM8 6v3.2m0 2v.2"/>',
+  error: '<path d="m8 1.5 7 12H1zM8 6v3.2m0 2v.2"/>',
+  no_ci: '<circle cx="8" cy="8" r="6.2"/><path d="M4.5 8h7"/>'
+};
+function badge(state) {
+  const known = labels[state] ? state : "unknown";
+  return `<span class="badge ${known}"><svg class="status-icon" viewBox="0 0 16 16" aria-hidden="true">${statusIcons[known]}</svg>${labels[known]}</span>`;
+}
 function empty(title, copy) { return `<div class="empty-state"><h2>${escape(title)}</h2><p>${escape(copy)}</p></div>`; }
 function allIssues() {
   return (view.snapshot?.repositories || []).flatMap(repo => (repo.issue_activity?.recent || []).map(issue => ({...issue, repo})));
