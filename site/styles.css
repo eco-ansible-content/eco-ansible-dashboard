@@ -24,7 +24,7 @@
   color-scheme: dark;
   --rh-color-text-primary: #ffffff; --rh-color-text-secondary: #c7c7c7;
   --rh-color-border-subtle: #707070; --rh-color-interactive: #92c5f9;
-  --bg: var(--rh-color-surface-darkest); --surface: var(--rh-color-surface-darker); --raised: #292929;
+  --bg: var(--rh-color-surface-darker); --surface: var(--rh-color-surface-darker); --raised: #292929;
   --accent-hover: #b9dafb; --selected: #ff542e;
   --success: #87bb62; --warning: #ffcc17; --failure: #f8a080; --info: #b6a6e9;
   --focus: #92c5f9; --field-border: #a3a3a3; --row-hover: #262626;

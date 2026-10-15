@@ -157,7 +157,7 @@ The palette uses neutral surfaces, a concentrated red selection cue, blue intera
 ### Neutral
 
 - **Neutral white / canvas light:** content surface and surrounding page, with the canvas also used for inset details and domain headings.
-- **Neutral charcoal / panel dark / raised dark:** persistent masthead, dark canvas, dark panel, and inset surface hierarchy.
+- **Neutral charcoal / panel dark / raised dark:** persistent masthead, shared Darker canvas and panel base, and inset surface hierarchy. Dark mode uses the RHDS [Darker palette](https://ux.redhat.com/theming/color-palettes/) for the page canvas and workspace; the raised neutral separates domain headings and expanded details.
 - **Neutral secondary / border / field:** secondary copy, one-pixel separators, and stronger input outlines. The [RHDS border tokens](https://ux.redhat.com/tokens/border/) inform the border and focus language.
 - **Neutral hover / masthead hover:** row and masthead-action hover feedback.
 
